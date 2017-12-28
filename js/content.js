@@ -23,11 +23,12 @@ chrome.runtime.onMessage.addListener(
       //将url插入网易页面后下载
       //转换为blob然后再下载
       fetch(url).then(function(response) {
+        console.log(response);
         return response.blob();
       }).then(function(myBlob) {
         var a = document.createElement('a');
         var downloadUrl = URL.createObjectURL(myBlob);
-        // console.log(downloadUrl);
+        console.log(downloadUrl);
         a.href = downloadUrl;
         a.download = name;
         a.click();

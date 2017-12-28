@@ -15,7 +15,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     }
   },{// filters
     urls: [
-        "https://music.163.com/weapi/song/enhance/player/url?csrf_token="
+        "https://music.163.com/weapi/song/enhance/player/url?csrf_token=*"
     ]
   },
   ["requestBody","blocking"]
@@ -25,11 +25,10 @@ chrome.runtime.onMessage.addListener(
     if(request.type == 'netease'){
       $.each(netease, function(index, value) {
         if (value.name === request.name && value.singer === request.singer){
-          console.log('=='+value.name);
           netease.splice(index,1);
           return false;
         }else{
-          console.log(value.name);
+          // console.log(value.name);
         }
       });
       netease.push(request);

@@ -1,5 +1,30 @@
 var bg = chrome.extension.getBackgroundPage();
 $(function(){
+  //分页
+    $('#table').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        search: true,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        exportTypes: ['csv','txt','xml'],
+        search: true,
+        clickToSelect: true,
+        columns:
+            [
+                {field:"header",title:"封面",align:"center",valign:"middle",sortable:"true"},
+                {field:"name",title:"歌曲",align:"center",valign:"middle",sortable:"true"},
+                {field:"singer",title:"歌手",align:"center",valign:"middle",sortable:"true"}
+            ],
+        data:bg.netease,
+    });
   //获取所有听过的网易云的歌曲
   getNetease();
 
