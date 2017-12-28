@@ -23,6 +23,15 @@ chrome.webRequest.onBeforeRequest.addListener(
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.type == 'netease'){
+      $.each(netease, function(index, value) {
+        if (value.name === request.name && value.singer === request.singer){
+          console.log('=='+value.name);
+          netease.splice(index,1);
+          return false;
+        }else{
+          console.log(value.name);
+        }
+      });
       netease.push(request);
     }
   }

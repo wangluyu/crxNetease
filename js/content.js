@@ -21,34 +21,18 @@ chrome.runtime.onMessage.addListener(
       var url = request.url;
       var name = request.name;
       //将url插入网易页面后下载
-      var html = '<a id="back-download-netease" hidden href="'+url+'" download="'+name+'">download</a>';
-      $('.play').append(html);
-      //blob
-      if (url !== window.currentMusicUrl) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.responseType = 'blob';
-        xhr.onload = function(e) {
-          var res = xhr.response;
-          var blob = new Blob([res], {type:"audio/mpeg"});
-          window.URL.revokeObjectURL(window.downloadUrl);
-          window.currentMusicUrl = url;
-          window.downloadUrl = window.URL.createObjectURL(blob);
-          if(downloadUrl.indexOf('music.163.com') != -1){
-            document.getElementById('back-download-netease').href = downloadUrl;
-            $('#back-download-netease')[0].click();
-            // $('#back-download-netease').remove();
-            // $('#back-download-netease').attr('href',downloadUrl);
-          }
-        };
-        xhr.onreadystatechange = function() {
-          if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            console.log($('#back-download-netease').attr('href'));
-          }
-        };
-        xhr.send();
-      }
-      // console.log(document.getElementById('back-download-netease').href);
+      //转换为blob然后再下载
+      fetch(url).then(function(response) {
+        return response.blob();
+      }).then(function(myBlob) {
+        var a = document.createElement('a');
+        var downloadUrl = URL.createObjectURL(myBlob);
+        // console.log(downloadUrl);
+        a.href = downloadUrl;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(downloadUrl);
+      });
     }
   }
 );
