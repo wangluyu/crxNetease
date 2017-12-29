@@ -9,7 +9,7 @@ var app = new Vue({
     netease_download: function (index) {
       var data = this.netease[index];
       console.log(data);
-      fetch(url, {ada
+      fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
