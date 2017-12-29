@@ -2,32 +2,44 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <title>Document</title>
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-table.js"> </script>
-        <script src="js/popup.js"> </script>
-
+        <title>Media Club</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-table.css">
         <link rel="stylesheet" type="text/css" href="css/popup.css">
     </head>
 <body>
-    <div class="container">
-        <table id="table"></table>
-        <!--<table class="table table-hover">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th scope="col">封面</th>-->
-                <!--<th scope="col">歌名</th>-->
-                <!--<th scope="col">歌手</th>-->
-                <!--<th scope="col">下载</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody id="music">-->
-            <!--</tbody>-->
-        <!--</table>-->
+    <div class="container" id="app">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">封面</th>
+                <th scope="col">歌名</th>
+                <th scope="col">歌手</th>
+                <th scope="col">下载</th>
+            </tr>
+            </thead>
+            <tbody id="musica">
+                <tr v-for="(index, item) in netease" :key="index" track-by="$index">
+                    <th scope="row">
+                        <img :src="item.img" />
+                    </th>
+                    <th scope="row">
+                        {{ item.name }}
+                    </th>
+                    <th scope="row">
+                        {{ item.singer }}
+                    </th>
+                    <th scope="row">
+                        <button class="btn btn-primary btn-xs download-netease" @click="netease_download(index)">Download</button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+        <!--<ul class="pagination pagination-sm" id="pagination">-->
+        <!--</ul>-->
         <!--<button class="btn btn-primary" id="get_music">get music</button>-->
     </div>
+    <script src="js/vue.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popup.js"> </script>
 </body>
 </html>

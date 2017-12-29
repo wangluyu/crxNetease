@@ -1,5 +1,6 @@
 //网易云音乐
 var netease = [];
+//监听抓包
 chrome.webRequest.onBeforeRequest.addListener(
   function(details) {
     try{
@@ -20,6 +21,7 @@ chrome.webRequest.onBeforeRequest.addListener(
   },
   ["requestBody","blocking"]
 );
+//获取来自content.js的
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.type == 'netease'){
