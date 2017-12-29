@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Media Club</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/popup.css">
     </head>
 <body>
@@ -11,14 +12,14 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">封面</th>
+                <th @click="alert('aaa')" scope="col">封面</th>
                 <th scope="col">歌名</th>
                 <th scope="col">歌手</th>
                 <th scope="col">下载</th>
             </tr>
             </thead>
-            <tbody id="musica">
-                <tr v-for="(index, item) in netease" :key="index" track-by="$index">
+            <tbody id="neteast-table">
+                <tr v-for="(index, item) in netease_table_show_data" :key="index" track-by="$index">
                     <th scope="row">
                         <img :src="item.img" />
                     </th>
@@ -29,14 +30,28 @@
                         {{ item.singer }}
                     </th>
                     <th scope="row">
-                        <button class="btn btn-primary btn-xs download-netease" @click="netease_download(index)">Download</button>
+                        <button class="btn btn-primary btn-xs download-netease" @click="netease_download(index)" data-toggle="tooltip" data-placement="bottom" title="download">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-danger btn-xs" @click="netease_table_remove('one',index)" data-toggle="tooltip" data-placement="bottom" title="remove">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
                     </th>
                 </tr>
             </tbody>
         </table>
-        <!--<ul class="pagination pagination-sm" id="pagination">-->
-        <!--</ul>-->
-        <!--<button class="btn btn-primary" id="get_music">get music</button>-->
+        <ul class="pagination pagination-sm">
+            <li :class="netease_table_pre_pager_class" @click="netease_table_change_page(netease_table.page - 1)"><a href="#">&laquo;</a></li>
+            <li v-for="n in netease_table_total_page" :class="{ active : n+1 === netease_table.page }">
+                <a href="#" @click="netease_table_change_page(n+1)">{{n+1}}</a>
+            </li>
+            <li :class="netease_table_next_pager_class" @click="netease_table_change_page(netease_table.page + 1)"><a href="#">&raquo;</a></li>
+        </ul>
+        <br>
+        <div class="btn-group">
+            <a href="#" class="btn btn-danger btn-sm" @click="netease_table_remove('page',1)">清空本页</a>
+            <a href="#" class="btn btn-danger btn-sm" @click="netease_table_remove('all',1)">清空列表</a>
+        </div>
         <div id="cover">
             <img src="loading.gif">
         </div>

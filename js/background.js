@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(
           // console.log(value.name);
         }
       });
-      netease.push(request);
+      netease.unshift(request);
     }
   }
 );

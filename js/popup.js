@@ -3,12 +3,55 @@ var app = new Vue({
   el:"#app",
   data:{
     title:"media club",
-    netease: bg.netease
+    netease_table: {
+        data: bg.netease,//总数据
+        total_num: bg.netease.length,//总条数
+        num: 5,//每页条数
+        page: 1,//当前页码
+    }
+  },
+  computed: {
+    netease_table_show_data: function () {  //本页显示的数据
+      var end = this.netease_table.page * this.netease_table.num
+      var start = this.netease_table.num * (this.netease_table.page -1)
+      return this.netease_table.data.slice(start,end)
+    },
+    netease_table_total_page: function () {//总页数
+      return Math.ceil(this.netease_table.total_num / this.netease_table.num)
+    },
+    netease_table_pre_pager_class: function () {//控制网易云table分页后退的class
+        return {
+            'disabled' : this.netease_table.page === 1 //当前页等于
+        }
+    },
+    netease_table_next_pager_class: function () {//控制网易云table分页前进的class
+        return {
+          'disabled' : this.netease_table.page === this.netease_table_total_page //当前页等于最后一页
+        }
+    }
   },
   methods: {
+    netease_table_remove: function (type,index) {
+      switch (type){
+        case 'one':
+          bg.netease.splice(this.netease_table.num * (this.netease_table.page -1) + index,1);
+          break
+        case 'page':
+          bg.netease.splice(this.netease_table.num * (this.netease_table.page -1),this.netease_table.num);
+          break
+        case 'all':
+          bg.netease.splice(0,bg.netease.length)
+          break
+      }
+    },
+    netease_table_change_page: function (index) {
+      if(index !==0 && index <= this.netease_table_total_page){
+        this.netease_table.page = index
+      }
+    },
     netease_download: function (index) {
       cover();
-      var data = this.netease[index];
+      var data = this.netease_table.data[index];
       axios({
         method: 'post',
         url: 'https://music.163.com/weapi/song/enhance/player/url?csrf_token=',
@@ -37,7 +80,7 @@ var app = new Vue({
         });
       }).catch(function (err) {
         console.log(err);
-      });
+      })
     }
   }
 });
