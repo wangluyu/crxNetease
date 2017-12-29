@@ -33,6 +33,13 @@ chrome.runtime.onMessage.addListener(
         a.download = name;
         a.click();
         window.URL.revokeObjectURL(downloadUrl);
+      }).then(function () {
+        //给popup.js发消息说已创建下载链接(无论成功或失败)
+        chrome.runtime.sendMessage({
+          type: 'netease_download_complete'
+        }, function(response) {
+          // console.log(response);
+        })
       });
     }
   }
