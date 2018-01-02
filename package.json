@@ -1,7 +1,7 @@
 {
-  "name": "extension",
+  "name": "media-club",
   "version": "1.0.0",
-  "description": "A media extension for chromeextension",
+  "description": "A media extension for chrome",
   "author": "wangluyu <13728742101@163.com>",
   "private": true,
   "scripts": {
@@ -14,7 +14,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "iview": "^2.8.0",
     "vue": "^2.5.2",
+    "vue-awesome": "^2.3.4",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -25,6 +28,7 @@
     "babel-jest": "^21.0.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-import": "^1.6.3",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.22.0",

@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+
+  "name": "download netease cloud music",
+  "description": "download netease cloud music.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_title": "music",
+    "default_icon": "icon_new.png",
+    "default_popup": "popup.html"
+  },
+  "permissions" : [//向浏览器申请的权限
+    "tabs",
+    "activeTab",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/jquery.js","js/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": ["js/jquery.js","js/background.js"]
+  }
+}
